@@ -23,7 +23,7 @@ pipeline {
 
         stage('Load Image to Minikube') {
             steps {
-                bat 'minikube image load cicd-demo:latest'
+                bat 'C:\\minikube\\minikube.exe image load cicd-demo:latest'
             }
         }
 
