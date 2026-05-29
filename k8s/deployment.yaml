@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: springboot-app
-          image: yourdockerhubusername/springboot-app:latest
+          image: cicd-demo:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 8080
 ---

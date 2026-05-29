@@ -1,16 +1,11 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK17'
-        maven 'Maven3'
-    }
-
     stages {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/YourUsername/springboot-cicd-app.git'
+                echo 'Source Code Checkout Completed'
             }
         }
 
@@ -22,7 +17,13 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                bat 'docker build -t springboot-app:latest .'
+                bat 'docker build -t cicd-demo:latest .'
+            }
+        }
+
+        stage('Load Image to Minikube') {
+            steps {
+                bat 'minikube image load cicd-demo:latest'
             }
         }
 
@@ -32,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Verify') {
+        stage('Verify Deployment') {
             steps {
                 bat 'kubectl get pods'
             }
@@ -41,10 +42,10 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline Successful!'
+            echo 'Pipeline Completed Successfully!'
         }
         failure {
-            echo 'Pipeline Failed!'
+            echo 'Pipeline Failed! Check Logs.'
         }
     }
 }
