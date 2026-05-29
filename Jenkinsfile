@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        KUBECONFIG = "C:\\ProgramData\\Jenkins\\.jenkins\\.kube\\config"
+        MINIKUBE_HOME = "C:\\ProgramData\\Jenkins\\.jenkins\\.minikube"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -23,7 +28,7 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                bat 'kubectl apply -f k8s/deployment.yaml'
+                bat 'kubectl apply -f k8s/deployment.yaml --validate=false'
             }
         }
 
