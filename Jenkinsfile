@@ -21,12 +21,6 @@ pipeline {
             }
         }
 
-        stage('Load Image to Minikube') {
-            steps {
-                bat 'C:\\minikube\\minikube.exe image load cicd-demo:latest'
-            }
-        }
-
         stage('Deploy to Kubernetes') {
             steps {
                 bat 'kubectl apply -f k8s/deployment.yaml'
